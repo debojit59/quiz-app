@@ -1,10 +1,12 @@
 import { useEffect, useReducer } from "react";
 import FinishScreen from "./components/FinishScreen";
+import Footer from "./components/Footer";
 import Main from "./components/Main";
 import NextButton from "./components/NextButton";
 import Progress from "./components/Progress";
 import { Question } from "./components/Question";
 import StartScreen from "./components/StartScreen";
+import Timer from "./components/Timer";
 import Error from "./Error";
 import Header from "./Header";
 import Loader from "./Loader";
@@ -16,7 +18,10 @@ const initialState = {
   answer: null,
   points: 0,
   highScore: 0,
+  secondRemaning: null,
 };
+
+const q_Sec = 5;
 
 function reducer(state, action) {
   switch (action.type) {
@@ -25,7 +30,11 @@ function reducer(state, action) {
     case "dataFailed":
       return { ...state, status: "error" };
     case "Start":
-      return { ...state, status: "active" };
+      return {
+        ...state,
+        status: "active",
+        secondRemaning: state.questions.length * q_Sec,
+      };
     case "newAnswer":
       const question = state.questions.at(state.index);
       return {
@@ -46,6 +55,19 @@ function reducer(state, action) {
         highScore:
           state.points > state.highScore ? state.points : state.highScore,
       };
+    case "reset":
+      return {
+        ...initialState,
+        status: "ready",
+        questions: state.questions,
+      };
+
+    case "tick":
+      return {
+        ...state,
+        secondRemaning: state.secondRemaning - 1,
+        status: state.secondRemaning === 0 ? "finish" : state.status,
+      };
 
     default:
       throw new Error("Actions are not recieved ");
@@ -54,7 +76,15 @@ function reducer(state, action) {
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { questions, status, index, answer, points, highScore } = state;
+  const {
+    questions,
+    status,
+    index,
+    answer,
+    points,
+    highScore,
+    secondRemaning,
+  } = state;
   const maxPossiblePoints = questions.reduce(
     (prev, cur) => prev + cur.points,
     0
@@ -99,12 +129,15 @@ function App() {
                 dispatch={dispatch}
                 answer={answer}
               />
-              <NextButton
-                dispatch={dispatch}
-                answer={answer}
-                numQuestions={numQuestions}
-                index={index}
-              />
+              <Footer>
+                <Timer secondRemaning={secondRemaning} dispatch={dispatch} />
+                <NextButton
+                  dispatch={dispatch}
+                  answer={answer}
+                  numQuestions={numQuestions}
+                  index={index}
+                />
+              </Footer>
             </>
           )}
           {status === "finish" && (
@@ -112,6 +145,7 @@ function App() {
               points={points}
               maxPossiblePoints={maxPossiblePoints}
               highScore={highScore}
+              dispatch={dispatch}
             />
           )}
         </Main>

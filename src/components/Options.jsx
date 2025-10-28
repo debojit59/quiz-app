@@ -4,6 +4,7 @@ export default function Option({ questions, dispatch, answer }) {
     <div className="options">
       {questions.options.map((option, index) => (
         <button
+          key={index}
           className={`btn btn-option ${index === answer ? "answer" : ""} ${
             hasAnswered
               ? index === questions.correctOption
