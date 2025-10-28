@@ -1,4 +1,5 @@
 import { useEffect, useReducer } from "react";
+import FinishScreen from "./components/FinishScreen";
 import Main from "./components/Main";
 import NextButton from "./components/NextButton";
 import Progress from "./components/Progress";
@@ -36,6 +37,9 @@ function reducer(state, action) {
       };
     case "nextPage":
       return { ...state, index: state.index + 1, answer: null };
+
+    case "finish":
+      return { ...state, status: "finish" };
 
     default:
       throw new Error("Actions are not recieved ");
@@ -89,8 +93,19 @@ function App() {
                 dispatch={dispatch}
                 answer={answer}
               />
-              <NextButton dispatch={dispatch} answer={answer} />
+              <NextButton
+                dispatch={dispatch}
+                answer={answer}
+                numQuestions={numQuestions}
+                index={index}
+              />
             </>
+          )}
+          {status === "finish" && (
+            <FinishScreen
+              points={points}
+              maxPossiblePoints={maxPossiblePoints}
+            />
           )}
         </Main>
       </div>
