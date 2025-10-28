@@ -11,6 +11,7 @@ export default function NextButton({ dispatch, answer, numQuestions, index }) {
         </button>
       </div>
     );
+
   if (index === numQuestions - 1)
     return (
       <div>

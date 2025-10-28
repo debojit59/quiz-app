@@ -50,6 +50,8 @@ function reducer(state, action) {
       };
     case "nextPage":
       return { ...state, index: state.index + 1, answer: null };
+    case "prevPage":
+      return { ...state, index: state.index - 1, answer: null };
 
     case "finish":
       return {
@@ -131,6 +133,14 @@ function App() {
                   numQuestions={numQuestions}
                   index={index}
                 />
+                {index > 0 && (
+                  <button
+                    className="btn btn-ui"
+                    onClick={() => dispatch({ type: "prevPage" })}
+                  >
+                    Prev
+                  </button>
+                )}
               </Footer>
             </>
           )}
