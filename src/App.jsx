@@ -15,6 +15,7 @@ const initialState = {
   index: 0,
   answer: null,
   points: 0,
+  highScore: 0,
 };
 
 function reducer(state, action) {
@@ -39,7 +40,12 @@ function reducer(state, action) {
       return { ...state, index: state.index + 1, answer: null };
 
     case "finish":
-      return { ...state, status: "finish" };
+      return {
+        ...state,
+        status: "finish",
+        highScore:
+          state.points > state.highScore ? state.points : state.highScore,
+      };
 
     default:
       throw new Error("Actions are not recieved ");
@@ -48,7 +54,7 @@ function reducer(state, action) {
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { questions, status, index, answer, points } = state;
+  const { questions, status, index, answer, points, highScore } = state;
   const maxPossiblePoints = questions.reduce(
     (prev, cur) => prev + cur.points,
     0
@@ -105,6 +111,7 @@ function App() {
             <FinishScreen
               points={points}
               maxPossiblePoints={maxPossiblePoints}
+              highScore={highScore}
             />
           )}
         </Main>
