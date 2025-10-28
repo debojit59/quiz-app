@@ -11,6 +11,9 @@ import Error from "./Error";
 import Header from "./Header";
 import Loader from "./Loader";
 
+// ⬇️ Using local JSON so it works in production (no localhost needed)
+import questions from "./questions.json";
+
 const initialState = {
   questions: [],
   status: "loading",
@@ -77,7 +80,7 @@ function reducer(state, action) {
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const {
-    questions,
+    questions: qs,
     status,
     index,
     answer,
@@ -85,23 +88,14 @@ function App() {
     highScore,
     secondRemaning,
   } = state;
-  const maxPossiblePoints = questions.reduce(
-    (prev, cur) => prev + cur.points,
-    0
-  );
 
-  const numQuestions = questions.length;
+  const maxPossiblePoints = qs.reduce((prev, cur) => prev + cur.points, 0);
+  const numQuestions = qs.length;
+
+  // ⬇️ Replace localhost fetch with local JSON dispatch
   useEffect(function () {
-    async function fetchdata() {
-      try {
-        const res = await fetch(`http://localhost:8000/questions`);
-        const json = await res.json();
-        const data = dispatch({ type: "received", payload: json });
-      } catch (error) {
-        dispatch({ type: "error" });
-      }
-    }
-    fetchdata();
+    // if your questions.json is { "questions": [...] }
+    dispatch({ type: "received", payload: questions.questions });
   }, []);
 
   return (
@@ -125,7 +119,7 @@ function App() {
               />
 
               <Question
-                questions={questions[index]}
+                questions={qs[index]}
                 dispatch={dispatch}
                 answer={answer}
               />

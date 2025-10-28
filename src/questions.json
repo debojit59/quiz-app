@@ -1,224 +1,136 @@
 {
   "questions": [
     {
-      "question": "In React 18, which updates are batched by default?",
+      "question": "Which key choice most commonly causes state bugs when a list can be reordered?",
       "options": [
-        "Only updates inside React event handlers",
-        "Updates inside React events and setTimeout, promises, and native events",
-        "Only updates wrapped in ReactDOM.unstable_batchedUpdates",
-        "Only concurrent mode trees using <Suspense>"
-      ],
-      "correctOption": 1,
-      "points": 40
-    },
-    {
-      "question": "Which statement about useEffect(() => ..., []) is TRUE?",
-      "options": [
-        "It runs before the DOM is painted",
-        "It runs exactly once after the initial commit on the client",
-        "It also runs during SSR",
-        "It blocks painting until it completes"
+        "Database id",
+        "Array index",
+        "Composite of stable fields",
+        "Slug"
       ],
       "correctOption": 1,
       "points": 25
     },
     {
-      "question": "useLayoutEffect differs from useEffect because:",
+      "question": "useEffect(() => {...}, []) runs:",
       "options": [
-        "It runs on the server for Server Components",
-        "It runs synchronously after DOM mutations but before the browser paints",
-        "It only runs when dependencies change AND before DOM mutations",
-        "It is identical; the name is historical"
+        "Before paint (blocking)",
+        "Once after initial render on the client",
+        "During SSR as well",
+        "On every render"
+      ],
+      "correctOption": 1,
+      "points": 20
+    },
+    {
+      "question": "What actually shows a <Suspense> fallback?",
+      "options": [
+        "Child returns null",
+        "Child throws a Promise while rendering",
+        "setState(null) in child",
+        "Parent sets loading = true"
       ],
       "correctOption": 1,
       "points": 30
     },
     {
-      "question": "Which key choice is most likely to cause state bugs when reordering list items?",
+      "question": "You pass an inline arrow function prop to a React.memo child. How do you avoid unnecessary re-renders?",
       "options": [
-        "A stable database id",
-        "A UUID generated at render time but stable across renders",
-        "The array index as key when the list can reorder",
-        "A composite key of stable fields"
+        "Only React.memo on child",
+        "Wrap parent in React.memo",
+        "useCallback in parent AND React.memo on child",
+        "useMemo in child"
       ],
       "correctOption": 2,
-      "points": 30
+      "points": 25
     },
     {
-      "question": "What actually triggers a Suspense fallback to show?",
+      "question": "When is startTransition useful?",
       "options": [
-        "A child component throws a Promise while rendering",
-        "Calling setState(null) in a child",
-        "Using React.lazy without dynamic import",
-        "Returning null from render"
+        "To make updates synchronous",
+        "To mark non-urgent updates so typing stays responsive",
+        "To delay effects until after paint",
+        "To batch across roots"
       ],
-      "correctOption": 0,
-      "points": 35
+      "correctOption": 1,
+      "points": 25
     },
     {
-      "question": "Error Boundaries in React will catch errors from which phase?",
+      "question": "Which is TRUE about refs?",
       "options": [
-        "Asynchronous callbacks (e.g., setTimeout) in children",
-        "Event handlers in children",
-        "Rendering, lifecycle methods, and constructors of descendant components",
-        "Server Components thrown errors on the server"
+        "Changing ref.current triggers re-render",
+        "Refs are serialized on SSR",
+        "useRef must be in effect deps",
+        "Mutating ref.current does not re-render"
       ],
-      "correctOption": 2,
-      "points": 35
+      "correctOption": 3,
+      "points": 20
     },
     {
-      "question": "You pass an inline arrow function as a prop to a memoized child (React.memo). What prevents unnecessary re-renders of the child?",
+      "question": "Which values belong in a useEffect dependency array?",
       "options": [
-        "Just using React.memo on the child",
-        "Wrapping the parent component in React.memo",
-        "Stabilizing the function reference with useCallback AND memoizing the child",
-        "Using useMemo on the child"
-      ],
-      "correctOption": 2,
-      "points": 40
-    },
-    {
-      "question": "Which pattern most commonly leads to a stale closure bug?",
-      "options": [
-        "Using a ref to store mutable values",
-        "Reading state inside setInterval without functional updates or refs",
-        "Using useEffect with a full dependency array",
-        "Using useMemo for expensive computation"
+        "Usually none",
+        "All state and props referenced by the effect",
+        "Only state variables",
+        "Only values that rarely change"
       ],
       "correctOption": 1,
       "points": 30
     },
     {
-      "question": "What is startTransition intended for?",
+      "question": "Which situation is most likely to cause hydration mismatch in Next.js?",
       "options": [
-        "To force immediate synchronous rendering",
-        "To mark non-urgent state updates so urgent updates (like typing) stay responsive",
-        "To defer effects until after paint",
-        "To batch updates across different roots"
-      ],
-      "correctOption": 1,
-      "points": 30
-    },
-    {
-      "question": "In development with StrictMode, which behavior is expected?",
-      "options": [
-        "Effect setup and cleanup may run twice to detect unsafe side effects",
-        "Effects never re-run",
-        "Only renders double; effects do not",
-        "Nothing changes versus production"
-      ],
-      "correctOption": 0,
-      "points": 35
-    },
-    {
-      "question": "Which situation is most likely to cause a hydration mismatch warning in a Next.js app?",
-      "options": [
-        "Using useEffect to set state",
         "Using deterministic classNames",
-        "Rendering Date.now() directly in the component output without stabilizing the value",
-        "Using static metadata in the App Router"
+        "Rendering Date.now() directly in output without stabilizing",
+        "Using useEffect to set state",
+        "Using static metadata"
       ],
-      "correctOption": 2,
-      "points": 40
+      "correctOption": 1,
+      "points": 30
     },
     {
-      "question": "In Next.js App Router (Server Components), what is the default behavior of fetch() in a Server Component when no options are provided?",
+      "question": "In Next.js App Router, default fetch() behavior in a Server Component is:",
       "options": [
-        "It is not cached and always refetched",
-        "It uses 'no-store' by default",
-        "It is cached and request-deduped by default",
-        "It throws unless wrapped in cache()"
+        "No cache; always refetch",
+        "Cached & request-deduped by default",
+        "Throws unless wrapped in cache()",
+        "Uses no-store by default"
       ],
-      "correctOption": 2,
-      "points": 45
+      "correctOption": 1,
+      "points": 35
     },
     {
-      "question": "Which statement about Server Components vs Client Components (Next.js App Router) is TRUE?",
+      "question": "A component uses useContext(MyCtx). It re-renders when:",
       "options": [
-        "Server Components can use useEffect and access the window object",
-        "Client Components can directly import and render Server Components",
-        "Server Components can import Client Components, but not vice versa",
-        "Both can access browser-only APIs"
-      ],
-      "correctOption": 2,
-      "points": 45
-    },
-    {
-      "question": "Which statement about refs is TRUE?",
-      "options": [
-        "Updating ref.current triggers a re-render",
-        "useRef must be listed in the dependency array of useEffect",
-        "Mutating ref.current does not trigger a re-render",
-        "Refs are serialized during SSR and rehydrated automatically"
-      ],
-      "correctOption": 2,
-      "points": 25
-    },
-    {
-      "question": "Which is the safest rule for a useEffect dependency array?",
-      "options": [
-        "Include all reactive values (state/props/context) referenced inside the effect",
-        "Include only state variables",
-        "Leave it empty for performance",
-        "Only include values that change rarely"
+        "The provider's value reference changes",
+        "A sibling updates",
+        "The value is deeply unequal only",
+        "Never; it reads once"
       ],
       "correctOption": 0,
-      "points": 35
+      "points": 25
     },
     {
       "question": "Which statement about useMemo is TRUE?",
       "options": [
-        "It guarantees the memoized value is kept forever",
-        "It memoizes the result between renders but React may discard it; don't use it as a cache",
-        "It prevents re-renders of the component",
-        "It makes any computation faster regardless of dependency stability"
-      ],
-      "correctOption": 1,
-      "points": 30
-    },
-    {
-      "question": "Which is TRUE about state updates in React 18?",
-      "options": [
-        "setState updates are applied immediately; reading state right after always gives the new value",
-        "Multiple setState calls in async handlers will never batch",
-        "React may batch updates and apply them later; reading state right after setState in the same tick can return the previous value",
-        "setState guarantees synchronous flushing in all cases"
+        "Prevents component re-renders",
+        "Caches forever until unmount",
+        "Memoizes a value between renders but React may discard it; not a cache guarantee",
+        "Always makes computation faster"
       ],
       "correctOption": 2,
-      "points": 35
-    },
-    {
-      "question": "A component consumes context with useContext(MyCtx). When does it re-render?",
-      "options": [
-        "Only when the provider's value is deeply unequal",
-        "Whenever the provider's value reference changes",
-        "Only when a sibling updates",
-        "Never; context is read once"
-      ],
-      "correctOption": 1,
-      "points": 30
-    },
-    {
-      "question": "Which statement about React.lazy is TRUE?",
-      "options": [
-        "It works by returning a Promise from dynamic import and must be wrapped in Suspense",
-        "It supports Server Components by default",
-        "It can lazy-load hooks",
-        "It does not require Suspense if used inside useEffect"
-      ],
-      "correctOption": 0,
       "points": 25
     },
     {
-      "question": "Which practice most reliably avoids unnecessary child re-renders in a large form?",
+      "question": "Which pattern most often causes stale closures?",
       "options": [
-        "Pass new objects as props on every render so children always get the latest values",
-        "Use React.memo for fields and stabilize prop references (objects/functions) with useMemo/useCallback",
-        "Keep the entire form state in a single object and pass it down unchanged",
-        "Use useLayoutEffect in children instead of useEffect"
+        "Reading state inside setInterval without functional updates/refs",
+        "Using refs for mutable values",
+        "Including full deps in effects",
+        "Using useMemo for expensive calc"
       ],
-      "correctOption": 1,
-      "points": 40
+      "correctOption": 0,
+      "points": 30
     }
   ]
 }
