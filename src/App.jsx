@@ -24,7 +24,7 @@ const initialState = {
   secondRemaning: null,
 };
 
-const q_Sec = 5;
+const q_Sec = 30;
 
 function reducer(state, action) {
   switch (action.type) {
